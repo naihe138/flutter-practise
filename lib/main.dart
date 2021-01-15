@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './resdata/list.dart';
 
 void main() {
   runApp(MyApp());
@@ -23,59 +24,50 @@ class MyApp extends StatelessWidget {
 class Content extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(child: Containt());
+    return Containt();
   }
 }
 
-// class Containt extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       child: Image.network(
-//         'https://blog.naice.me/_nuxt/img/f59a6a8.jpg',
-//         fit: BoxFit.contain,
-//       ),
-//       width: 300.0,
-//       height: 300.0,
-//       decoration: BoxDecoration(
-//         color: Colors.deepOrange[700],
-//         border: Border.all(color: Colors.greenAccent, width: 2),
-//         borderRadius: BorderRadius.all(Radius.circular(10)),
-//       ),
-//     );
-//   }
-// }
-
-// 实现圆角图片
-// class Containt extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       width: 300.0,
-//       height: 300.0,
-//       decoration: BoxDecoration(
-//         color: Colors.deepOrange[700],
-//         border: Border.all(color: Colors.greenAccent, width: 2),
-//         borderRadius: BorderRadius.all(Radius.circular(40)),
-//         image: DecorationImage(
-//           image: NetworkImage('https://blog.naice.me/_nuxt/img/f59a6a8.jpg'),
-//           fit: BoxFit.contain,
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-// 实现圆形图片
+// home
 class Containt extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: ClipOval(
-        child: Image.network('https://blog.naice.me/_nuxt/img/f59a6a8.jpg'),
+      child: TopBanner(),
+    );
+  }
+}
+
+class TopBanner extends StatelessWidget {
+  List<Widget> _renderItem() {
+    var list = listDemo2.map((item) {
+      return Container(
+        child: Text(
+          item['title'],
+          style: TextStyle(color: Colors.white, fontSize: 20),
+          textAlign: TextAlign.center,
+        ),
+        decoration: BoxDecoration(
+          image: DecorationImage(image: NetworkImage(item['bg']), fit: BoxFit.cover),
+        ),
+        width: 293,
+        height: 187,
+        margin: EdgeInsets.fromLTRB(0, 0, 20, 0),
+      );
+    });
+    return list.toList();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+      color: Color(0xFFe1e1e1),
+      height: 187,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        children: this._renderItem(),
       ),
-      width: 100,
-      height: 100,
     );
   }
 }
